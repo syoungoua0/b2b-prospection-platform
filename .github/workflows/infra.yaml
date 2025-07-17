@@ -1,3 +1,9 @@
+name: "Infra CI/CD"
+on:
+  push:
+    paths:
+      - 'infra/terraform/**'
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -21,7 +27,3 @@ jobs:
         run: |
           cd infra/terraform
           terraform apply -auto-approve -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
-      - name: Terraform Output
-        run: |
-          cd infra/terraform
-          terraform output -json > terraform_output.json  
