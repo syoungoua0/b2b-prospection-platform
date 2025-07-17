@@ -6,22 +6,26 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v3
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+      
       - name: Terraform Init
         run: |
           cd infra/terraform
           terraform init
+      
       - name: Debug SUBNET_IDS
         run: |
           echo "SUBNET_IDS value: '${{ secrets.SUBNET_IDS }}'"
-          echo "Length: ${#SUBNET_IDS}"
+      
       - name: Terraform Plan
         run: |
           cd infra/terraform
-          terraform plan -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
+          terraform plan -var 'subnet_ids=${{ secrets.SUBNET_IDS }}'
+      
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: |
           cd infra/terraform
-          terraform apply -auto-approve -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
+          terraform apply -auto-approve -var 'subnet_ids=${{ secrets.SUBNET_IDS }}'
