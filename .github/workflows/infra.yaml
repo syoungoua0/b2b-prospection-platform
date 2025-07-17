@@ -1,33 +1,12 @@
-name: "Infra CI/CD"
+name: "Test Workflow"
 on:
   push:
     paths:
-      - 'infra/terraform/**'
+      - '**/*.md'
 
 jobs:
-  terraform:
+  test:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-      - name: Terraform Init
-        run: |
-          cd infra/terraform
-          terraform init
-      - name: Terraform Plan
-        run: |
-          cd infra/terraform
-          terraform plan -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: |
-          cd infra/terraform
-          terraform apply -auto-approve -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
-      - name: Terraform Output
-        run: |
-          cd infra/terraform
-          terraform output -json > terraform_output.json
+      - name: Echo
+        run: echo "Hello World"
