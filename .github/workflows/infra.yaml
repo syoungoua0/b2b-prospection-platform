@@ -13,7 +13,9 @@ jobs:
           cd infra/terraform
           terraform init
       - name: Debug SUBNET_IDS
-        run: echo "${{ secrets.SUBNET_IDS }}"
+        run: |
+          echo "SUBNET_IDS value: '${{ secrets.SUBNET_IDS }}'"
+          echo "Length: ${#SUBNET_IDS}"
       - name: Terraform Plan
         run: |
           cd infra/terraform
