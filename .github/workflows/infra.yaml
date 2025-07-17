@@ -27,3 +27,7 @@ jobs:
         run: |
           cd infra/terraform
           terraform apply -auto-approve -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
+      - name: Terraform Output
+        run: |
+          cd infra/terraform
+          terraform output -json > terraform_output.json
