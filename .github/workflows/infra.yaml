@@ -24,9 +24,9 @@ jobs:
       - name: Terraform Plan
         run: |
           cd infra/terraform
-          terraform plan -var 'subnet_ids=${{ secrets.SUBNET_IDS }}''
+          terraform plan -var 'subnet_ids=${{ secrets.SUBNET_IDS }}'
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: |
           cd infra/terraform
-          terraform apply -auto-approve -var 'subnet_ids=${{ secrets.SUBNET_IDS }}''
+          terraform apply -auto-approve -var 'subnet_ids=${{ secrets.SUBNET_IDS }}'
