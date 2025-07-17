@@ -1,12 +1,12 @@
-name: "Test Workflow"
+name: Test Workflow
 on:
   push:
     paths:
       - '**/*.md'
 
 jobs:
-  test:
+  hello:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo
-        run: echo "Hello World"
+      - name: Say Hello
+        run: echo "It works!"
