@@ -1,0 +1,12 @@
+name: Test Workflow
+on:
+  push:
+    paths:
+      - '**/*.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: echo "Hello World"
