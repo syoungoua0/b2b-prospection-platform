@@ -11,14 +11,23 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+
+      # ⬇️ Injecte les credentials AWS dans l'environnement du runner
+      - name: Export AWS credentials
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+
       - name: Terraform Init
         run: |
           cd infra/terraform
           terraform init
+
       - name: Terraform Plan
         run: |
           cd infra/terraform
           terraform plan -var "subnet_ids=${{ secrets.SUBNET_IDS }}"
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: |
